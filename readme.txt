@@ -21,7 +21,7 @@ andW Tour Price Calendarは、ツアーの価格情報をカレンダー形式�
 * **CSV二段階探索**: プラグインディレクトリとアップロードディレクトリの二段階でCSVファイルを探索
 * **ヒートマップ表示**: 価格の高低を10段階の色分けで視覚化（青→緑→赤）
 * **Gutenbergブロック対応**: エディタで簡単に挿入可能
-* **ショートコード対応**: `[tour_price]` で任意の場所に配置可能
+* **ショートコード対応**: `[andw_tour_price_calendar]` で任意の場所に配置可能
 * **催行確定バッジ**: 催行確定日を視覚的に表示（ON/OFF設定可能）
 * **レスポンシブデザイン**: モバイルデバイスでも美しく表示
 * **キャッシュ機能**: 高速表示のためのTransientキャッシュ対応
@@ -53,7 +53,7 @@ A1,2024-07-15,1,催行確定
 
 **ショートコード**
 ```
-[tour_price tour="A1" month="2024-07" duration="4" heatmap="true" show_legend="true"]
+[andw_tour_price_calendar tour="A1" month="2024-07" duration="4" heatmap="true" show_legend="true"]
 ```
 
 **Gutenbergブロック**
@@ -67,6 +67,7 @@ A1,2024-07-15,1,催行確定
 * `heatmap`: ヒートマップ表示（true/false、デフォルト: true）
 * `show_legend`: 凡例表示（true/false、デフォルト: true）
 * `confirmed_only`: 催行確定日のみ表示（true/false、デフォルト: false）
+* `show_booking_panel`: 予約パネル表示（true/false、デフォルト: false）
 
 == Installation ==
 
@@ -109,6 +110,11 @@ A1,2024-07-15,1,催行確定
 
 == Changelog ==
 
+= 1.0.1 =
+* ショートコード名をandw_tour_price_calendarに統一
+* show_booking_panelパラメータを追加
+* コードの整理とパフォーマンス改善
+
 = 1.0.0 =
 * 初回リリース
 * CSV二段階探索機能
@@ -121,6 +127,9 @@ A1,2024-07-15,1,催行確定
 * 国際化対応
 
 == Upgrade Notice ==
+
+= 1.0.1 =
+ショートコード名が変更されました。[tour_price]から[andw_tour_price_calendar]に更新してください。
 
 = 1.0.0 =
 初回リリースです。
