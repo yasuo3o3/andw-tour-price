@@ -814,7 +814,7 @@
                     pax: this.state.pax
                 };
                 
-                const response = await fetch('/wp-json/ns-tour-price/v1/quote', {
+                const response = await fetch('/wp-json/andw/v1/quote', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -876,7 +876,7 @@
             const tour = this.state.tour;
             const currentMonth = calendar.dataset.month || new Date().toISOString().slice(0, 7);
             console.log('refreshCalendar - month:', currentMonth, 'duration:', this.state.duration); // デバッグ用
-            const url = '/wp-json/ns-tour-price/v1/calendar?' + 
+            const url = '/wp-json/andw/v1/calendar?' + 
                        new URLSearchParams({
                            tour: tour,
                            duration: this.state.duration,
