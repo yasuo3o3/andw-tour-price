@@ -23,10 +23,12 @@ class Andw_Tour_Price_Rest {
 		// Load controller classes
 		require_once ANDW_TOUR_PRICE_PLUGIN_DIR . 'inc/Rest/Quote_Controller.php';
 		require_once ANDW_TOUR_PRICE_PLUGIN_DIR . 'inc/Rest/Annual_Controller.php';
+		require_once ANDW_TOUR_PRICE_PLUGIN_DIR . 'inc/Rest/Calendar_Controller.php';
 
 		// Instantiate controllers
 		self::$controllers['quote'] = new Andw_Tour_Price_Quote_Controller();
 		self::$controllers['annual'] = new Andw_Tour_Price_Annual_Controller();
+		self::$controllers['calendar'] = new Andw_Tour_Price_Calendar_Controller();
 	}
 
 	/**
