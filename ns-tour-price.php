@@ -1,13 +1,13 @@
 <?php
 /**
- * Plugin Name: NS Tour Price Calendar
+ * Plugin Name: andW Tour Price
  * Description: ツアー価格カレンダーを表示するWordPressプラグイン。CSV二段階探索とヒートマップ表示に対応。
  * Version: 1.0.2
  * Author: Netservice
  * Author URI: https://netservice.jp/
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
- * Text Domain: ns-tour-price
+ * Text Domain: andw-tour-price
  * Domain Path: /languages
  * Requires at least: 6.0
  * Tested up to: 6.4

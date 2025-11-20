@@ -1,4 +1,4 @@
-=== andW Tour Price Calendar ===
+=== andW Tour Price ===
 Author: yasuo3o3
 Author URI: https://yasuo-o.xyz/
 Contributors: yasuo3o3
