@@ -16,6 +16,13 @@
         }
     }
 
+    // 動的APIベースURL取得（WordPressのlocalize_scriptまたはフォールバック）
+    function getApiBase() {
+        return (window.andwTourPriceAjax && window.andwTourPriceAjax.restUrl)
+            ? window.andwTourPriceAjax.restUrl
+            : '/wp-json/andw/v1/';
+    }
+
     // 設定
     const CONFIG = {
         SELECTORS: {
@@ -31,8 +38,9 @@
             error: 'tpc-error',
         },
         API: {
-            endpoint: '/wp-json/andw/v1/calendar',
-            annualEndpoint: '/wp-json/andw/v1/annual',
+            get endpoint() { return getApiBase() + 'calendar'; },
+            get quoteEndpoint() { return getApiBase() + 'quote'; },
+            get annualEndpoint() { return getApiBase() + 'annual'; },
             timeout: 10000,
         }
     };
@@ -563,7 +571,7 @@
          * Ajax で年間データを取得
          */
         fetchAnnualData: function(tour, duration, year) {
-            const apiUrl = new URL('/wp-json/andw/v1/annual', window.location.origin);
+            const apiUrl = new URL(CONFIG.API.annualEndpoint, window.location.origin);
             
             fetch(apiUrl, {
                 method: 'POST',
@@ -814,7 +822,7 @@
                     pax: this.state.pax
                 };
                 
-                const response = await fetch('/wp-json/andw/v1/quote', {
+                const response = await fetch(CONFIG.API.quoteEndpoint, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -876,7 +884,7 @@
             const tour = this.state.tour;
             const currentMonth = calendar.dataset.month || new Date().toISOString().slice(0, 7);
             console.log('refreshCalendar - month:', currentMonth, 'duration:', this.state.duration); // デバッグ用
-            const url = '/wp-json/andw/v1/calendar?' + 
+            const url = CONFIG.API.endpoint + '?' + 
                        new URLSearchParams({
                            tour: tour,
                            duration: this.state.duration,
