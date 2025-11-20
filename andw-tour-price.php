@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: andW Tour Price Calendar
+ * Plugin Name: andW Tour Price
  * Description: ツアー価格カレンダーを表示するWordPressプラグイン。CSV二段階探索とヒートマップ表示に対応。
- * Version: 1.0.1
+ * Version: 1.0.2
  * Author: yasuo3o3
  * Author URI: https://yasuo-o.xyz/
  * License: GPL v2 or later
