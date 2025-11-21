@@ -1347,7 +1347,7 @@ input[type="number"].tpc-pax-input {
     }
     
     .calendar-header {
-        padding: 16px 20px;
+        padding: 10px 8px;
     }
     
     .calendar-title-row {
@@ -1355,7 +1355,7 @@ input[type="number"].tpc-pax-input {
         justify-content: space-between;
         align-items: center;
         gap: 8px;
-        margin-bottom: 12px;
+        margin-bottom: 0;
     }
     
     .calendar-title {
@@ -1701,7 +1701,6 @@ input[type="number"].tpc-pax-input {
     .tpc-duration-tabs {
         gap: 3px;
         margin-top: 8px;
-        justify-content: flex-start;
         flex-wrap: nowrap;
         overflow-x: auto;
     }
@@ -1948,7 +1947,6 @@ input[type="number"].tpc-pax-input {
     }
     
     .tpc-mini-calendars {
-        grid-template-columns: 1fr;
         gap: 8px;
     }
     
