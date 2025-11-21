@@ -1658,7 +1658,6 @@ input[type="number"].tpc-pax-input {
     .tpc-duration-tabs {
         gap: 4px;
         margin-top: 10px;
-        justify-content: flex-start;
         flex-wrap: nowrap;
         overflow-x: auto;
     }
