@@ -26,7 +26,7 @@
     // 設定
     const CONFIG = {
         SELECTORS: {
-            calendar: '.andw-tour-price-calendar',
+            calendar: '.ns-tour-price-calendar, .andw-tour-price-calendar',
             navButton: '.tpc-nav__btn',
             navLink: '.tpc-nav-link', // durationタブも含む汎用セレクター
             loading: '.tpc-loading',
@@ -694,7 +694,7 @@
                 submit: document.querySelector('[data-tpc-submit]'),
                 paxSelect: document.querySelector('[data-tpc-pax]'),
                 durationTabs: document.querySelectorAll('[data-tpc-duration-tabs] button'),
-                calendar: document.querySelector('.andw-tour-price-calendar')
+                calendar: document.querySelector(CONFIG.SELECTORS.calendar)
             };
         },
         
@@ -734,7 +734,7 @@
         
         handleDateClick: function(e) {
             // カレンダー内のクリックのみ処理
-            if (!e.target.closest('.andw-tour-price-calendar')) {
+            if (!e.target.closest(CONFIG.SELECTORS.calendar)) {
                 return;
             }
             
