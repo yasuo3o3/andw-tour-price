@@ -277,7 +277,8 @@ class Andw_Tour_Price_Renderer {
 							<div class="legend-item">
 								<span class="legend-color <?php echo esc_attr( $legend_item['class'] ); ?>"></span>
 								<span class="legend-label">
-									<?php echo esc_html( $legend_item['season_code'] ); ?> <?php echo esc_html( $legend_item['formatted_price'] ); ?>
+									<span class="legend-season-code"><?php echo esc_html( $legend_item['season_code'] ); ?></span>
+									<span class="legend-price"><?php echo esc_html( $legend_item['formatted_price'] ); ?></span>
 								</span>
 							</div>
 						<?php endforeach; ?>
