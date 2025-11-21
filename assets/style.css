@@ -1281,11 +1281,12 @@ input[type="number"].tpc-pax-input {
     .calendar-legend {
         padding: 20px 18px;
     }
+}
 
+@media (max-width: 768px) {
      .tpc-booking-panel {
       margin: 20px 0 20px 0;
   }
-
 }
 
 .calendar-legend h4 {
