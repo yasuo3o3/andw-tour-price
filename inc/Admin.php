@@ -37,19 +37,11 @@ class Andw_Tour_Price_Admin {
 
 	public function adminInit() {
 		register_setting( 'andw_tour_price_settings', 'andw_tour_price_options', array( $this, 'sanitizeOptions' ) );
-		register_setting( 'andw_tour_price_settings', 'andw_tour_price_season_colors', array( $this, 'sanitizeSeasonColors' ) );
 
 		add_settings_section(
 			'andw_tour_price_general',
 			__( 'General Settings', 'andw-tour-price' ),
 			array( $this, 'generalSectionCallback' ),
-			'andw_tour_price_settings'
-		);
-
-		add_settings_section(
-			'andw_tour_price_annual',
-			__( 'Annual View Settings', 'andw-tour-price' ),
-			array( $this, 'annualSectionCallback' ),
 			'andw_tour_price_settings'
 		);
 
@@ -107,14 +99,6 @@ class Andw_Tour_Price_Admin {
 			array( $this, 'bookingFormUrlFieldCallback' ),
 			'andw_tour_price_settings',
 			'andw_tour_price_general'
-		);
-
-		add_settings_field(
-			'season_colors',
-			__( 'Season Colors', 'andw-tour-price' ),
-			array( $this, 'seasonColorsFieldCallback' ),
-			'andw_tour_price_settings',
-			'andw_tour_price_annual'
 		);
 
 		// 非推奨設定を非表示化（データは保持）
@@ -1248,77 +1232,6 @@ A1,WINTER,WINTER</pre>
 	/**
 	 * 年間ビューセクションコールバック
 	 */
-	public function annualSectionCallback() {
-		echo '<p>' . esc_html__( 'Settings for the Annual Price Overview feature.', 'andw-tour-price' ) . '</p>';
-	}
-
-	/**
-	 * シーズン色設定フィールド
-	 */
-	public function seasonColorsFieldCallback() {
-		$season_colors = get_option( 'andw_tour_price_season_colors', array() );
-		$season_codes = $this->repo->getDistinctSeasonCodes();
-		
-		if ( empty( $season_codes ) ) {
-			echo '<p>' . esc_html__( 'There are currently no season records in seasons.csv. Please upload the CSV file.', 'andw-tour-price' ) . '</p>';
-			return;
-		}
-
-		echo '<table class="widefat">';
-		echo '<thead><tr><th>' . esc_html__( 'Season Code', 'andw-tour-price' ) . '</th><th>' . esc_html__( 'Color', 'andw-tour-price' ) . '</th></tr></thead>';
-		echo '<tbody>';
-		
-		foreach ( $season_codes as $code ) {
-			$current = $season_colors[ $code ] ?? '';
-			$color = $current !== '' ? $current : $this->getDefaultSeasonColor( $code );
-			echo '<tr>';
-			echo '<td><strong>' . esc_html( $code ) . '</strong></td>';
-			echo '<td>';
-			echo '<input type="color" name="andw_tour_price_season_colors[' . esc_attr( $code ) . ']" value="' . esc_attr( $color ) . '" />';
-			echo ' <code>' . esc_html( $color ) . '</code>';
-			echo '</td>';
-			echo '</tr>';
-		}
-		
-		echo '</tbody></table>';
-		echo '<p class="description">' . esc_html__( 'Set the display colors for seasons in the annual view. If not set, default colors will be used.', 'andw-tour-price' ) . '</p>';
-	}
-
-	/**
-	 * デフォルトシーズン色を取得
-	 */
-	private function getDefaultSeasonColor( $season_code ) {
-		$default_colors = array(
-			'A' => '#4CAF50', // 緑
-			'B' => '#E91E63', // ピンク
-			'C' => '#FF9800', // オレンジ
-			'D' => '#2196F3', // 青
-			'E' => '#9C27B0', // 紫
-			'F' => '#795548'  // 茶
-		);
-
-		return $default_colors[ $season_code ] ?? '#9E9E9E';
-	}
-
-	/**
-	 * シーズン色設定のサニタイズ
-	 */
-	public function sanitizeSeasonColors( $input ) {
-		$sanitized = array();
-		
-		if ( is_array( $input ) ) {
-			foreach ( $input as $code => $color ) {
-				$sanitized_code = sanitize_text_field( $code );
-				$sanitized_color = sanitize_hex_color( $color );
-				
-				if ( $sanitized_color ) {
-					$sanitized[ $sanitized_code ] = $sanitized_color;
-				}
-			}
-		}
-		
-		return $sanitized;
-	}
 
 	/**
 	 * 価格表の色分けモード設定フィールド

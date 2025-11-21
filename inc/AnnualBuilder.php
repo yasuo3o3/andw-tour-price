@@ -32,7 +32,6 @@ class Andw_Tour_Price_Annual_Builder {
 	 * @return array {html: string, meta: array}
 	 */
 	public function build( $tour, $duration, $year, $opts = array() ) {
-		error_log( "AnnualBuilder::build called with tour=$tour, duration=$duration, year=$year" );
 		
 		$defaults = array(
 			'show_mini_calendars' => true,
@@ -56,13 +55,8 @@ class Andw_Tour_Price_Annual_Builder {
 		}
 
 		// 年間データを生成
-		error_log( "AnnualBuilder: generateAnnualData開始" );
 		$annual_data = $this->generateAnnualData( $tour, $duration, $year, $opts );
-		error_log( "AnnualBuilder: generateAnnualData完了" );
-		
-		error_log( "AnnualBuilder: summarizeSeasonPrices開始" );
 		$season_summary = $this->summarizeSeasonPrices( $tour, $duration, $year );
-		error_log( "AnnualBuilder: summarizeSeasonPrices完了" );
 
 		$html = $this->renderAnnualView( $annual_data, $season_summary, $tour, $duration, $year, $opts );
 
@@ -402,25 +396,6 @@ class Andw_Tour_Price_Annual_Builder {
 		return null;
 	}
 
-	/**
-	 * シーズン色マップから色取得
-	 */
-	private function getSeasonColorFromMap( $season_code ) {
-		$season_colors = get_option( 'andw_tour_price_season_colors', array() );
-		
-		if ( isset( $season_colors[ $season_code ] ) ) {
-			return $season_colors[ $season_code ];
-		}
-
-		// デフォルト色
-		$default_colors = array(
-			'A' => '#4CAF50', 'B' => '#E91E63', 'C' => '#FF9800', 'D' => '#2196F3',
-			'E' => '#9C27B0', 'F' => '#795548', 'G' => '#607D8B', 'H' => '#FFC107',
-			'I' => '#8BC34A', 'J' => '#00BCD4', 'K' => '#FF5722', 'L' => '#3F51B5',
-		);
-
-		return $default_colors[ $season_code ] ?? '#6c757d';
-	}
 
 	/**
 	 * 指定年に該当するシーズン期間を抽出
@@ -687,18 +662,13 @@ class Andw_Tour_Price_Annual_Builder {
 	 * @return array ['Y-m-d' => price_int, ...]
 	 */
 	private function getYearlyPricesDirectly( $tour_id, $duration, $year ) {
-		error_log( "getYearlyPricesDirectly: tour_id=$tour_id, duration=$duration, year=$year" );
 		$yearly_prices = array();
-		
+
 		// seasons.csvを読み込み
 		$seasons_path = ANDW_TOUR_PRICE_PLUGIN_DIR . 'data/seasons.csv';
 		$prices_path = ANDW_TOUR_PRICE_PLUGIN_DIR . 'data/base_prices.csv';
-		
-		error_log( "getYearlyPricesDirectly: seasons_path=$seasons_path" );
-		error_log( "getYearlyPricesDirectly: prices_path=$prices_path" );
-		
+
 		if ( ! file_exists( $seasons_path ) || ! file_exists( $prices_path ) ) {
-			error_log( "AnnualBuilder: CSV files not found" );
 			return $yearly_prices;
 		}
 		
@@ -772,8 +742,7 @@ class Andw_Tour_Price_Annual_Builder {
 				$current->add( new DateInterval( 'P1D' ) );
 			}
 		}
-		
-		error_log( "getYearlyPricesDirectly: 最終結果 yearly_prices count=" . count( $yearly_prices ) );
+
 		return $yearly_prices;
 	}
 
