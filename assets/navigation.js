@@ -609,6 +609,30 @@
         },
 
         /**
+         * 日数変更時の年間データ読み込み
+         */
+        loadAnnualDataForDuration: function(tour, duration, year) {
+            console.log('Loading annual data for duration change:', tour, duration, year);
+
+            // 年間ビューのチェックボックス状態を確認
+            const checkbox = document.getElementById('tpc-annual-checkbox');
+            if (!checkbox || !checkbox.checked) {
+                console.log('Annual view checkbox not checked or not found');
+                return;
+            }
+
+            // キャッシュチェック
+            const cacheKey = `${tour}:${duration}:${year}`;
+            if (this.cache.has(cacheKey)) {
+                this.displayAnnualView(this.cache.get(cacheKey));
+                return;
+            }
+
+            // 新しい日数でAjax取得
+            this.fetchAnnualData(tour, duration, year);
+        },
+
+        /**
          * 年間ビューを表示
          */
         displayAnnualView: function(html) {
@@ -641,7 +665,7 @@
                             const currentYear = new Date().getFullYear();
 
                             // 新しい日数で年間ビューを再読み込み
-                            this.loadAnnualData(tour, duration, currentYear);
+                            this.loadAnnualDataForDuration(tour, duration, currentYear);
                         }
                     }
                 });
@@ -910,21 +934,25 @@
         refreshCalendar: function() {
             const calendar = this.els.calendar;
             if (!calendar) return;
-            
+
+            // 年間ビューの状態を保存
+            const annualCheckbox = document.getElementById('tpc-annual-checkbox');
+            const wasAnnualViewVisible = annualCheckbox && annualCheckbox.checked;
+
             // カレンダーのdata-durationを更新
             calendar.dataset.duration = this.state.duration;
-            
+
             // カレンダーを再読み込み
             const tour = this.state.tour;
             const currentMonth = calendar.dataset.month || new Date().toISOString().slice(0, 7);
             console.log('refreshCalendar - month:', currentMonth, 'duration:', this.state.duration); // デバッグ用
-            const url = CONFIG.API.endpoint + '?' + 
+            const url = CONFIG.API.endpoint + '?' +
                        new URLSearchParams({
                            tour: tour,
                            duration: this.state.duration,
                            month: currentMonth
                        }).toString();
-            
+
             fetch(url)
                 .then(response => response.json())
                 .then(data => {
@@ -932,6 +960,18 @@
                         updateCalendarContent(calendar, data.html);
                         AnnualView.setupToggleButton(); // 年間ビュートグルボタンを再設定
                         setupAnnualView(calendar); // 年間ビューも再設定
+
+                        // 年間ビューが表示されていた場合は再度表示
+                        if (wasAnnualViewVisible) {
+                            const newCheckbox = document.getElementById('tpc-annual-checkbox');
+                            if (newCheckbox) {
+                                newCheckbox.checked = true;
+                                // 年間ビューを新しい日数で更新
+                                const currentYear = new Date().getFullYear();
+                                AnnualView.loadAnnualDataForDuration(tour, this.state.duration, currentYear);
+                            }
+                        }
+
                         TPC.bindEvents(); // TPC日付クリックイベントも再設定
                     }
                 })
