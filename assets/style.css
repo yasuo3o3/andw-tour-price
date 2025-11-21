@@ -1277,6 +1277,17 @@ input[type="number"].tpc-pax-input {
     border-top: 1px solid #e2e8f0;
 }
 
+@media (max-width: 480px) {
+    .calendar-legend {
+        padding: 20px 18px;
+    }
+
+     .tpc-booking-panel {
+      margin: 20px 0 20px 0;
+  }
+
+}
+
 .calendar-legend h4 {
     margin: 0 0 16px 0;
     font-size: 16px;
@@ -1405,11 +1416,11 @@ input[type="number"].tpc-pax-input {
     }
     
     .day-number {
-        font-size: 12px;
+        font-size: 10px;
     }
     
     .day-price {
-        font-size: 9px;
+        font-size: 11px;
     }
     
     .confirmed-badge {
