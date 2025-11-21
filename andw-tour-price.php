@@ -129,7 +129,8 @@ class Andw_Tour_Price {
 		// REST API用のlocalize
 		wp_localize_script( 'andw-tour-price-navigation', 'andwTourPriceAjax', array(
 			'restUrl' => rest_url( 'andw/v1/' ),
-			'nonce'   => wp_create_nonce( 'wp_rest' )
+			'nonce'   => wp_create_nonce( 'wp_rest' ),
+			'bookingFormUrl' => apply_filters( 'andw_tour_price_booking_form_url', '/booking-input/' )
 		));
 	}
 

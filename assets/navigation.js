@@ -717,7 +717,12 @@
             if (this.els.paxSelect) {
                 this.els.paxSelect.addEventListener('change', this.handlePaxChange.bind(this));
             }
-            
+
+            // 申込フォームボタンのクリック処理
+            if (this.els.submit) {
+                this.els.submit.addEventListener('click', this.handleSubmitClick.bind(this));
+            }
+
             this.eventsInitialized = true;
             console.log('TPC event handlers initialized'); // デバッグ用
         },
@@ -968,6 +973,72 @@
             } catch (e) {
                 return '¥' + amount;
             }
+        },
+
+        /**
+         * 申込フォームボタンのクリック処理
+         */
+        handleSubmitClick: function(e) {
+            e.preventDefault();
+
+            console.log('Submit button clicked, state:', this.state); // デバッグ用
+
+            if (!this.state.date) {
+                alert('出発日を選択してください');
+                return;
+            }
+
+            this.submitToBookingForm();
+        },
+
+        /**
+         * 申込フォームへ送信
+         */
+        submitToBookingForm: function() {
+            console.log('Submitting to booking form...'); // デバッグ用
+
+            // 申込フォームURLの取得（設定から取得またはデフォルト値）
+            const bookingFormUrl = window.andwTourPriceAjax && window.andwTourPriceAjax.bookingFormUrl
+                ? window.andwTourPriceAjax.bookingFormUrl
+                : '/booking-input/';
+
+            // フォームデータを準備
+            const formData = {
+                tour: this.state.tour,
+                date: this.state.date,
+                duration: this.state.duration,
+                pax: this.state.pax
+            };
+
+            console.log('Form data to submit:', formData); // デバッグ用
+
+            // POSTフォームを動的に作成
+            const form = document.createElement('form');
+            form.method = 'POST';
+            form.action = bookingFormUrl;
+            form.style.display = 'none';
+
+            // データを隠しフィールドとして追加
+            Object.keys(formData).forEach(key => {
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = key;
+                input.value = formData[key];
+                form.appendChild(input);
+            });
+
+            // nonceを追加（WordPressセキュリティ）
+            if (window.andwTourPriceAjax && window.andwTourPriceAjax.nonce) {
+                const nonceInput = document.createElement('input');
+                nonceInput.type = 'hidden';
+                nonceInput.name = '_wpnonce';
+                nonceInput.value = window.andwTourPriceAjax.nonce;
+                form.appendChild(nonceInput);
+            }
+
+            // フォームをDOMに追加して送信
+            document.body.appendChild(form);
+            form.submit();
         }
     };
 
