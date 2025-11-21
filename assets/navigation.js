@@ -616,7 +616,36 @@
             if (annualRoot) {
                 annualRoot.innerHTML = html;
                 annualRoot.style.display = 'block';
+
+                // 年間ビュー内の日数タブのイベントハンドラーを設定
+                this.setupAnnualDurationTabs(annualRoot);
             }
+        },
+
+        /**
+         * 年間ビュー内の日数タブのイベント処理
+         */
+        setupAnnualDurationTabs: function(annualRoot) {
+            const durationTabs = annualRoot.querySelectorAll('.tpc-duration-tabs--annual .tpc-duration-tab');
+
+            durationTabs.forEach(tab => {
+                tab.addEventListener('click', (e) => {
+                    e.preventDefault();
+
+                    const duration = tab.getAttribute('data-duration');
+                    if (duration) {
+                        // 現在のツアー情報を取得
+                        const calendar = document.querySelector('.andw-tour-price-calendar');
+                        if (calendar) {
+                            const tour = calendar.getAttribute('data-tour');
+                            const currentYear = new Date().getFullYear();
+
+                            // 新しい日数で年間ビューを再読み込み
+                            this.loadAnnualData(tour, duration, currentYear);
+                        }
+                    }
+                });
+            });
         },
 
         /**
