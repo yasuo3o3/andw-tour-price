@@ -286,7 +286,7 @@ class Andw_Tour_Price_Renderer {
 			<?php endif; ?>
 		</div>
 
-		<?php echo wp_kses_post( $this->renderBookingPanel( $args, $calendar_data ) ); ?>
+		<?php echo $this->renderBookingPanel( $args, $calendar_data ); ?>
 		</div>
 		
 		<?php
