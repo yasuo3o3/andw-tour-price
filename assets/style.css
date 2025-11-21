@@ -287,6 +287,10 @@
 
 /* Season Table HP Classes */
 /* 区分列（シーズン）のみに色を適用 */
+.tpc-season-table .season-code {
+    text-align: center;
+}
+
 .tpc-season-table .season-code.hp-0 { background-color: var(--hp-0); color: #ffffff; }
 .tpc-season-table .season-code.hp-1 { background-color: var(--hp-1); color: #ffffff; }
 .tpc-season-table .season-code.hp-2 { background-color: var(--hp-2); color: #ffffff; }
@@ -1830,9 +1834,7 @@ input[type="number"].tpc-pax-input {
     font-size: 14px;
 }
 
-.tpc-season-table tbody tr:hover {
-    font-weight: bold;
-}
+
 
 /* シーズンチップ */
 .tpc-season-chip {
