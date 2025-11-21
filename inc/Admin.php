@@ -102,6 +102,14 @@ class Andw_Tour_Price_Admin {
 		);
 
 		add_settings_field(
+			'booking_form_url',
+			__( 'Booking Form URL', 'andw-tour-price' ),
+			array( $this, 'bookingFormUrlFieldCallback' ),
+			'andw_tour_price_settings',
+			'andw_tour_price_general'
+		);
+
+		add_settings_field(
 			'season_colors',
 			__( 'Season Colors', 'andw-tour-price' ),
 			array( $this, 'seasonColorsFieldCallback' ),
@@ -942,6 +950,21 @@ A1,WINTER,WINTER</pre>
 		<?php
 	}
 
+	public function bookingFormUrlFieldCallback() {
+		$options = get_option( 'andw_tour_price_options', array() );
+		$current = $options['booking_form_url'] ?? '/booking-input/';
+		?>
+		<input type="text"
+			   name="andw_tour_price_options[booking_form_url]"
+			   value="<?php echo esc_attr( $current ); ?>"
+			   placeholder="/booking-input/"
+			   class="regular-text" />
+		<p class="description">
+			<?php esc_html_e( '申込フォームのURLまたはパス（例: /contact/, https://external.com/form/）', 'andw-tour-price' ); ?>
+		</p>
+		<?php
+	}
+
 	public function heatmapColorsFieldCallback() {
 		$options = get_option( 'andw_tour_price_options', array() );
 		$default_colors = array(
@@ -1012,6 +1035,19 @@ A1,WINTER,WINTER</pre>
 		if ( isset( $input['heatmap_mode'] ) ) {
 			$mode = sanitize_text_field( $input['heatmap_mode'] );
 			$sanitized['heatmap_mode'] = in_array( $mode, array( 'quantile', 'linear' ), true ) ? $mode : 'quantile';
+		}
+
+		// 申込フォームURLの検証
+		if ( isset( $input['booking_form_url'] ) ) {
+			$url = trim( $input['booking_form_url'] );
+			if ( empty( $url ) ) {
+				$sanitized['booking_form_url'] = '/booking-input/'; // デフォルト値
+			} elseif ( filter_var( $url, FILTER_VALIDATE_URL ) || strpos( $url, '/' ) === 0 ) {
+				$sanitized['booking_form_url'] = esc_url_raw( $url );
+			} else {
+				// 相対パスに正規化
+				$sanitized['booking_form_url'] = '/' . ltrim( $url, '/' );
+			}
 		}
 
 		// ヒートマップ色リストの検証

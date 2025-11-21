@@ -130,7 +130,7 @@ class Andw_Tour_Price {
 		wp_localize_script( 'andw-tour-price-navigation', 'andwTourPriceAjax', array(
 			'restUrl' => rest_url( 'andw/v1/' ),
 			'nonce'   => wp_create_nonce( 'wp_rest' ),
-			'bookingFormUrl' => apply_filters( 'andw_tour_price_booking_form_url', '/booking-input/' )
+			'bookingFormUrl' => apply_filters( 'andw_tour_price_booking_form_url', $this->getBookingFormUrl() )
 		));
 	}
 
@@ -280,6 +280,16 @@ class Andw_Tour_Price {
 			$repo->clearCache();
 		}
 		flush_rewrite_rules();
+	}
+
+	/**
+	 * 申込フォームURLを取得
+	 *
+	 * @return string 申込フォームURL
+	 */
+	private function getBookingFormUrl() {
+		$options = get_option( 'andw_tour_price_options', array() );
+		return $options['booking_form_url'] ?? '/booking-input/';
 	}
 }
 
