@@ -1080,8 +1080,11 @@ A1,WINTER,WINTER</pre>
 		}
 
 		// シーズンパレットの検証
+		error_log('DEBUG: season_palette input check - isset: ' . (isset( $input['season_palette'] ) ? 'YES' : 'NO'));
 		if ( isset( $input['season_palette'] ) ) {
+			error_log('DEBUG: season_palette raw input: ' . print_r($input['season_palette'], true));
 			$colors_text = sanitize_textarea_field( $input['season_palette'] );
+			error_log('DEBUG: season_palette sanitized text: ' . print_r($colors_text, true));
 			$colors = array();
 			
 			if ( ! empty( $colors_text ) ) {
@@ -1105,7 +1108,8 @@ A1,WINTER,WINTER</pre>
 					'#ff5722', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5'
 				);
 			}
-			
+
+			error_log('DEBUG: season_palette final colors: ' . print_r($colors, true));
 			$sanitized['season_palette'] = $colors;
 		}
 
@@ -1338,13 +1342,16 @@ A1,WINTER,WINTER</pre>
 	 */
 	public function seasonPaletteFieldCallback() {
 		$options = get_option( 'andw_tour_price_options', array() );
+		error_log('DEBUG: seasonPaletteFieldCallback - options retrieved: ' . print_r($options, true));
 		$default_palette = array(
 			'#e3f2fd', '#bbdefb', '#90caf9', '#64b5f6', '#42a5f5',
 			'#2196f3', '#1e88e5', '#1976d2', '#1565c0', '#0d47a1',
 			'#ff5722', '#e91e63', '#9c27b0', '#673ab7', '#3f51b5'
 		);
 		$current_colors = isset( $options['season_palette'] ) ? $options['season_palette'] : $default_palette;
+		error_log('DEBUG: seasonPaletteFieldCallback - current_colors: ' . print_r($current_colors, true));
 		$colors_text = implode( "\n", $current_colors );
+		error_log('DEBUG: seasonPaletteFieldCallback - colors_text: ' . print_r($colors_text, true));
 		?>
 		<textarea id="season_palette" name="andw_tour_price_options[season_palette]" rows="15" cols="50"><?php echo esc_textarea( $colors_text ); ?></textarea>
 		<p class="description">
