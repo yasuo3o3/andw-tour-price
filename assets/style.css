@@ -458,6 +458,7 @@
 .tpc-quote__row strong {
     color: #1a202c;
     font-weight: 600;
+    font-size: 18px;
 }
 
 .tpc-quote__total {
@@ -477,7 +478,7 @@
 
 .tpc-quote__total strong {
     color: #4299e1;
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .tpc-quote__note {
