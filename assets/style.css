@@ -1123,7 +1123,7 @@ input[type="number"].tpc-pax-input {
 .day-number {
     font-size: 14px;
     font-weight: 600;
-    color: #e9ebee;
+    color: #000000;
     margin-bottom: 4px;
     line-height: 1;
 }
