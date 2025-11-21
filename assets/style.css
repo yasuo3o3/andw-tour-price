@@ -1819,7 +1819,7 @@ input[type="number"].tpc-pax-input {
 }
 
 .tpc-season-table tbody tr:hover {
-    background: rgba(255, 255, 255, 0.03);
+    font-weight: bold;
 }
 
 /* シーズンチップ */
