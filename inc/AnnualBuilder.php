@@ -606,8 +606,8 @@ class Andw_Tour_Price_Annual_Builder {
 								// 文字色を自動判定（CSSカスタムプロパティから実際の色を取得）
 								$text_color = $this->getTextColorForHpClass( $hp_class );
 							?>
-							<tr data-season="<?php echo esc_attr( $code ); ?>" data-price="<?php echo esc_attr( $price ?? 0 ); ?>" class="<?php echo esc_attr( implode( ' ', $season_classes ) ); ?>" style="color: <?php echo esc_attr( $text_color ); ?>;">
-								<td class="season-code"><?php echo esc_html( $label ); ?></td>
+							<tr data-season="<?php echo esc_attr( $code ); ?>" data-price="<?php echo esc_attr( $price ?? 0 ); ?>" class="season-row season-<?php echo esc_attr( strtolower( $code ) ); ?>">
+								<td class="season-code <?php echo esc_attr( $hp_class ); ?>" style="color: <?php echo esc_attr( $text_color ); ?>;"><?php echo esc_html( $label ); ?></td>
 								<td class="season-periods"><?php echo esc_html( $period_text ); ?></td>
 								<td class="season-price"><?php echo esc_html( $price_text ); ?></td>
 							</tr>
