@@ -813,6 +813,7 @@
                 
                 if (date) {
                     this.state.date = date;
+                    this.updateSelectedDate(date);
                     this.refreshQuote();
                 }
             }
@@ -973,6 +974,11 @@
                         }
 
                         TPC.bindEvents(); // TPC日付クリックイベントも再設定
+
+                        // 選択状態を復元
+                        if (this.state.date) {
+                            this.updateSelectedDate(this.state.date);
+                        }
                     }
                 })
                 .catch(error => {
@@ -1041,6 +1047,31 @@
                 return '¥' + Number(amount).toLocaleString();
             } catch (e) {
                 return '¥' + amount;
+            }
+        },
+
+        /**
+         * 選択された日付の視覚的状態を更新
+         */
+        updateSelectedDate: function(selectedDate) {
+            // 前回選択をクリア
+            const previousSelected = document.querySelector('.calendar-day.selected');
+            if (previousSelected) {
+                previousSelected.classList.remove('selected');
+            }
+
+            // 新しい選択をマーク
+            const newSelected = document.querySelector(`.calendar-day[data-date="${selectedDate}"]`);
+            if (newSelected) {
+                newSelected.classList.add('selected');
+
+                // スマートフォンでスクロール位置を調整
+                if (window.innerWidth <= 768) {
+                    newSelected.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
             }
         },
 
