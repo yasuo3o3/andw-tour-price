@@ -524,24 +524,26 @@ class Andw_Tour_Price_Renderer {
 				<div class="tpc-booking-options__label"><?php esc_html_e( 'オプション（任意）', 'andw-tour-price' ); ?></div>
 				<?php foreach ( $tour_options as $option ) : ?>
 					<label class="tpc-option">
-						<input type="checkbox" 
+						<input type="checkbox"
 							   data-tpc-option-id="<?php echo esc_attr( $option['option_id'] ); ?>"
 							   data-price-min="<?php echo esc_attr( $option['price_min'] ?? 0 ); ?>"
 							   data-price-max="<?php echo esc_attr( $option['price_max'] ?? 0 ); ?>"
 							   data-affects-total="<?php echo esc_attr( $option['affects_total'] ?? 'false' ); ?>" />
-						<span class="option-label">
-							<?php echo esc_html( $option['option_label'] ); ?>
-							<?php if ( ! empty( $option['show_price'] ) && $option['show_price'] === 'true' ) : ?>
-								<?php if ( $option['price_min'] == $option['price_max'] ) : ?>
-									（¥<?php echo number_format( $option['price_min'] ); ?>）
-								<?php else : ?>
-									（¥<?php echo number_format( $option['price_min'] ); ?>～¥<?php echo number_format( $option['price_max'] ); ?>）
+						<div class="option-content">
+							<span class="option-label">
+								<?php echo esc_html( $option['option_label'] ); ?>
+								<?php if ( ! empty( $option['show_price'] ) && $option['show_price'] === 'true' ) : ?>
+									<?php if ( $option['price_min'] == $option['price_max'] ) : ?>
+										（¥<?php echo number_format( $option['price_min'] ); ?>）
+									<?php else : ?>
+										（¥<?php echo number_format( $option['price_min'] ); ?>～¥<?php echo number_format( $option['price_max'] ); ?>）
+									<?php endif; ?>
 								<?php endif; ?>
+							</span>
+							<?php if ( ! empty( $option['description'] ) ) : ?>
+								<div class="option-description"><?php echo esc_html( $option['description'] ); ?></div>
 							<?php endif; ?>
-						</span>
-						<?php if ( ! empty( $option['description'] ) ) : ?>
-							<div class="option-description"><?php echo esc_html( $option['description'] ); ?></div>
-						<?php endif; ?>
+						</div>
 					</label>
 				<?php endforeach; ?>
 			</div>
