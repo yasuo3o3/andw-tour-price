@@ -793,6 +793,21 @@ input[type="number"].tpc-pax-input {
     font-size: 0.9em;
 }
 
+/* Renderer.php で使用される実際のオプション表示クラス */
+.option-label {
+    font-weight: 700;
+    color: #2d3748;
+    display: block;
+    margin-bottom: 5px;
+}
+
+.option-description {
+    margin: 0;
+    color: #718096;
+    font-size: 0.9em;
+    display: block;
+}
+
 /* 料金表示 */
 .tpc-pricing-breakdown {
     background: #f7fafc;
