@@ -944,9 +944,6 @@ input[type="number"].tpc-pax-input {
         gap: 10px;
     }
 
-    .tpc-duration-tabs {
-        flex-direction: column;
-    }
 
     .tpc-duration-tab {
         justify-content: center;
