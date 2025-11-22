@@ -588,26 +588,26 @@ class Andw_Tour_Price_Annual_Builder {
 							</tr>
 						</thead>
 						<tbody>
-							<?php foreach ( $season_summary as $code => $season ) : 
+							<?php foreach ( $season_summary as $code => $season ) :
 								$label = $season['label'] ?? $code;
 								$periods = ( isset( $season['periods'] ) && is_array( $season['periods'] ) ) ? $season['periods'] : array();
 								$price = $season['price'] ?? null;
-								
+
 								$period_text = $periods ? implode( '、', $periods ) : '—';
 								$price_text = ( $price !== null && $price > 0 ) ? '¥' . number_format( $price ) : '—';
-								
-								// hpクラス方式でシーズン色を適用
+
+								// hpクラス方式でシーズン色を適用（行全体に適用）
 								$hp_class = $season_color_map[ $code ] ?? '';
 								$season_classes = array( 'season-row', 'season-' . strtolower( $code ) );
 								if ( ! empty( $hp_class ) ) {
 									$season_classes[] = $hp_class;
 								}
-								
+
 								// 文字色を自動判定（CSSカスタムプロパティから実際の色を取得）
 								$text_color = $this->getTextColorForHpClass( $hp_class );
 							?>
-							<tr data-season="<?php echo esc_attr( $code ); ?>" data-price="<?php echo esc_attr( $price ?? 0 ); ?>" class="season-row season-<?php echo esc_attr( strtolower( $code ) ); ?>">
-								<td class="season-code <?php echo esc_attr( $hp_class ); ?>" style="color: <?php echo esc_attr( $text_color ); ?>;"><?php echo esc_html( $label ); ?></td>
+							<tr data-season="<?php echo esc_attr( $code ); ?>" data-price="<?php echo esc_attr( $price ?? 0 ); ?>" class="<?php echo esc_attr( implode( ' ', $season_classes ) ); ?>">
+								<td class="season-code"><?php echo esc_html( $label ); ?></td>
 								<td class="season-periods"><?php echo esc_html( $period_text ); ?></td>
 								<td class="season-price"><?php echo esc_html( $price_text ); ?></td>
 							</tr>

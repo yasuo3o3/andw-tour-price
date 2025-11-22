@@ -184,7 +184,8 @@
     border-bottom: none;
 }
 
-/* 価格表用のCSSカスタムプロパティ（ブルー系グラデーション） */
+/* 価格表用のCSSカスタムプロパティ（ブルー系グラデーション） - 統一色システムに移行のため無効化 */
+/*
 :root {
     --andw-pricetable-color-0: #e3f2fd;
     --andw-pricetable-color-1: #bbdefb;
@@ -197,51 +198,56 @@
     --andw-pricetable-color-8: #1565c0;
     --andw-pricetable-color-9: #0d47a1;
 }
+*/
 
-/* 価格ベースヒートマップクラス */
-.tpc-season-table tr.hp-pricetable-0 {
-    background: var(--andw-pricetable-color-0);
-    color: #333;
+/* シーズン表の統一色システム（カレンダーと同じhp-*クラス） */
+.tpc-season-table tr.hp-0 {
+    background: var(--hp-0);
+    color: #ffffff;
 }
-.tpc-season-table tr.hp-pricetable-1 {
-    background: var(--andw-pricetable-color-1);
-    color: #333;
+.tpc-season-table tr.hp-1 {
+    background: var(--hp-1);
+    color: #ffffff;
 }
-.tpc-season-table tr.hp-pricetable-2 {
-    background: var(--andw-pricetable-color-2);
-    color: #333;
+.tpc-season-table tr.hp-2 {
+    background: var(--hp-2);
+    color: #ffffff;
 }
-.tpc-season-table tr.hp-pricetable-3 {
-    background: var(--andw-pricetable-color-3);
-    color: #fff;
+.tpc-season-table tr.hp-3 {
+    background: var(--hp-3);
+    color: #ffffff;
 }
-.tpc-season-table tr.hp-pricetable-4 {
-    background: var(--andw-pricetable-color-4);
-    color: #fff;
+.tpc-season-table tr.hp-4 {
+    background: var(--hp-4);
+    color: #ffffff;
 }
-.tpc-season-table tr.hp-pricetable-5 {
-    background: var(--andw-pricetable-color-5);
-    color: #fff;
+.tpc-season-table tr.hp-5 {
+    background: var(--hp-5);
+    color: #000000;
 }
-.tpc-season-table tr.hp-pricetable-6 {
-    background: var(--andw-pricetable-color-6);
-    color: #fff;
+.tpc-season-table tr.hp-6 {
+    background: var(--hp-6);
+    color: #000000;
 }
-.tpc-season-table tr.hp-pricetable-7 {
-    background: var(--andw-pricetable-color-7);
-    color: #fff;
+.tpc-season-table tr.hp-7 {
+    background: var(--hp-7);
+    color: #000000;
 }
-.tpc-season-table tr.hp-pricetable-8 {
-    background: var(--andw-pricetable-color-8);
-    color: #fff;
+.tpc-season-table tr.hp-8 {
+    background: var(--hp-8);
+    color: #ffffff;
 }
-.tpc-season-table tr.hp-pricetable-9 {
-    background: var(--andw-pricetable-color-9);
-    color: #fff;
+.tpc-season-table tr.hp-9 {
+    background: var(--hp-9);
+    color: #ffffff;
+}
+.tpc-season-table tr.hp-10 {
+    background: var(--hp-10);
+    color: #ffffff;
 }
 
 /* フォールバック: 価格クラスなしまたは価格なしの行 */
-.tpc-season-table tr:not([class*="hp-pricetable-"]):not([class*="hp-"]) {
+.tpc-season-table tr:not([class*="hp-"]) {
     background: #f8f9fa;
     color: #6c757d;
 }
