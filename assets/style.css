@@ -346,7 +346,7 @@
 /* ==== 予約パネル ==== */
 .tpc-booking-panel {
     max-width: 320px;
-    margin: 20px 0 20px 20px;
+    margin: 0 0 20px 20px;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
@@ -504,7 +504,7 @@
     color: #ffffff;
     border: none;
     border-radius: 8px;
-    font-size: 15px;
+    font-size: 18px;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.15s ease;
@@ -2044,7 +2044,7 @@ input[type="number"].tpc-pax-input {
   @media (max-width: 768px) {
       .tpc-booking-container {
           flex-direction: column;
-          gap: 15px;
+          gap: 0;
           margin: 10px;
       }
       
