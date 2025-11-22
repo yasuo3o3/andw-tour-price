@@ -333,7 +333,7 @@
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    padding: 24px;
+    padding: 12px;
     font-family: inherit;
 }
 
@@ -1567,7 +1567,7 @@ input[type="number"].tpc-pax-input {
 /* ==== Duration タブ ==== */
 .tpc-duration-tabs {
     display: flex;
-    gap: 8px;
+    gap: 6px;
     margin-top: 12px;
     flex-wrap: wrap;
     justify-content: center;
