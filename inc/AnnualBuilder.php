@@ -90,9 +90,12 @@ class Andw_Tour_Price_Annual_Builder {
 		// 統一シーズン色マップを使用
 		$season_map_data = Andw_Tour_Price_SeasonColorMap::map( $tour, $year, $duration );
 		$season_color_map = array();
+		$season_actual_colors = array();
 		foreach ( $season_map_data['season_to_hp'] as $season => $hp_level ) {
 			$season_color_map[ $season ] = 'hp-' . $hp_level;
 		}
+		// 実際の色情報も保存
+		$season_actual_colors = $season_map_data['season_to_color'] ?? array();
 		
 		// シーズンベース色付けのため、旧ビン分割ロジックは不要
 		$heatmap_data = array();
@@ -162,6 +165,7 @@ class Andw_Tour_Price_Annual_Builder {
 			'months_rendered' => $months_rendered,
 			'heatmap' => $heatmap_data,
 			'season_colors' => $season_color_map,
+			'season_actual_colors' => $season_actual_colors,
 		);
 	}
 
@@ -456,8 +460,29 @@ class Andw_Tour_Price_Annual_Builder {
 	private function renderAnnualView( $annual_data, $season_summary, $tour, $duration, $year, $opts ) {
 		// シーズン固定色マッピングを使用
 		$season_color_map = $annual_data['season_colors'] ?? array();
+		$season_actual_colors = $annual_data['season_actual_colors'] ?? array();
 
 		ob_start();
+		?>
+		<?php
+		// 年間価格概要用インラインスタイルの生成（管理画面パレットを使用）
+		if ( ! empty( $season_actual_colors ) ) :
+			?>
+			<style>
+				<?php foreach ( $season_color_map as $season_code => $hp_class ) :
+					$actual_color = $season_actual_colors[ $season_code ] ?? '';
+					if ( $actual_color ) :
+						// テキスト色を自動判定
+						$text_color = $this->autoTextColor( $actual_color );
+						?>
+				.tpc-annual-view .<?php echo esc_attr( $hp_class ); ?> {
+					background-color: <?php echo esc_attr( $actual_color ); ?> !important;
+					color: <?php echo esc_attr( $text_color ); ?> !important;
+				}
+				<?php endif; endforeach; ?>
+			</style>
+			<?php
+		endif;
 		?>
 		<div class="tpc-annual-view" data-tour="<?php echo esc_attr( $tour ); ?>" data-duration="<?php echo esc_attr( $duration ); ?>" data-year="<?php echo esc_attr( $year ); ?>">
 
