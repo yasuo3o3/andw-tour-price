@@ -1648,8 +1648,8 @@ input[type="number"].tpc-pax-input {
     transform: translateY(0);
 }
 
+/* 選択状態の共通スタイル */
 .tpc-duration-tab.is-active {
-    background-color: currentColor;
     color: #ffffff !important;
     border-width: 2px;
     font-weight: 600;
@@ -1661,6 +1661,32 @@ input[type="number"].tpc-pax-input {
 .tpc-duration-tab.is-active:hover {
     transform: translateY(-1px);
     box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+/* 選択状態の期間別背景色 */
+.tpc-duration-tab.is-active[data-duration="4"] {
+    background-color: #f58195;
+    border-color: #f58195;
+}
+
+.tpc-duration-tab.is-active[data-duration="5"] {
+    background-color: #2cb1b1;
+    border-color: #2cb1b1;
+}
+
+.tpc-duration-tab.is-active[data-duration="6"] {
+    background-color: #b09221;
+    border-color: #b09221;
+}
+
+.tpc-duration-tab.is-active[data-duration="7"] {
+    background-color: #29aa29;
+    border-color: #29aa29;
+}
+
+.tpc-duration-tab.is-active[data-duration="8"] {
+    background-color: #d62a20;
+    border-color: #d62a20;
 }
 
 /* フォーカス表示 */
