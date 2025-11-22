@@ -340,7 +340,7 @@
 /* 年間ビューのシーズン料金テーブル */
 .tpc-annual-view .tpc-season-table th, 
 .tpc-annual-view .tpc-season-table td { 
-    color: #1f2937; 
+    color: #000; 
 }
 
 /* ==== 予約パネル ==== */
@@ -356,6 +356,7 @@
 
 /* 出発日エリア */
 .tpc-booking-date {
+    margin-top: 20px;
     margin-bottom: 20px;
     padding-bottom: 16px;
     border-bottom: 1px solid #e2e8f0;
