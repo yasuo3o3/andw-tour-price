@@ -1567,87 +1567,80 @@ input[type="number"].tpc-pax-input {
 /* ==== Duration タブ ==== */
 .tpc-duration-tabs {
     display: flex;
-    gap: 3px;
+    gap: 8px;
     margin-top: 12px;
     flex-wrap: wrap;
     justify-content: center;
+    align-items: center;
 }
 
 .tpc-duration-tab {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    padding: 4px 6px;
-    border-radius: 4px;
-    color: white;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: transparent;
+    border: 1px solid currentColor;
+    color: inherit;
     text-decoration: none;
     font-size: 14px;
     font-weight: 500;
     line-height: 1.2;
     transition: all 0.2s ease;
-    min-width: 44px;
+    min-width: 48px;
     white-space: nowrap;
 }
 
-/* 期間別の背景色設定 */
+/* 期間別の色設定 */
 .tpc-duration-tab[data-duration="4"] {
-    background: #f58195;
+    color: #f58195;
     border-color: #f58195;
 }
 
 .tpc-duration-tab[data-duration="5"] {
-    background: #2cb1b1;
+    color: #2cb1b1;
     border-color: #2cb1b1;
 }
 
 .tpc-duration-tab[data-duration="6"] {
-    background: #b09221;
+    color: #b09221;
     border-color: #b09221;
 }
 
 .tpc-duration-tab[data-duration="7"] {
-    background: #29aa29;
+    color: #29aa29;
     border-color: #29aa29;
 }
 
 .tpc-duration-tab[data-duration="8"] {
-    background: #d62a20;
+    color: #d62a20;
     border-color: #d62a20;
 }
 
-/* ホバー時は20%薄い色 */
-.tpc-duration-tab[data-duration="4"]:hover {
-    background: #f7a1b1;
-    border-color: #f7a1b1;
-    color: white;
+/* 非選択状態のホバー時（軽い背景色） */
+.tpc-duration-tab:not(.is-active)[data-duration="4"]:hover {
+    background-color: rgba(245, 129, 149, 0.12);
     text-decoration: none;
 }
 
-.tpc-duration-tab[data-duration="5"]:hover {
-    background: #4dbbbb;
-    border-color: #4dbbbb;
-    color: white;
+.tpc-duration-tab:not(.is-active)[data-duration="5"]:hover {
+    background-color: rgba(44, 177, 177, 0.12);
     text-decoration: none;
 }
 
-.tpc-duration-tab[data-duration="6"]:hover {
-    background: #c4a644;
-    border-color: #c4a644;
-    color: white;
+.tpc-duration-tab:not(.is-active)[data-duration="6"]:hover {
+    background-color: rgba(176, 146, 33, 0.12);
     text-decoration: none;
 }
 
-.tpc-duration-tab[data-duration="7"]:hover {
-    background: #4bb84b;
-    border-color: #4bb84b;
-    color: white;
+.tpc-duration-tab:not(.is-active)[data-duration="7"]:hover {
+    background-color: rgba(41, 170, 41, 0.12);
     text-decoration: none;
 }
 
-.tpc-duration-tab[data-duration="8"]:hover {
-    background: #dd5246;
-    border-color: #dd5246;
-    color: white;
+.tpc-duration-tab:not(.is-active)[data-duration="8"]:hover {
+    background-color: rgba(214, 42, 32, 0.12);
     text-decoration: none;
 }
 
@@ -1656,12 +1649,18 @@ input[type="number"].tpc-pax-input {
 }
 
 .tpc-duration-tab.is-active {
+    background-color: currentColor;
+    color: #ffffff !important;
+    border-width: 2px;
     font-weight: 600;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 7px 13px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transform: translateY(-1px);
 }
 
 .tpc-duration-tab.is-active:hover {
-    transform: none;
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
 }
 
 /* フォーカス表示 */
@@ -1673,7 +1672,7 @@ input[type="number"].tpc-pax-input {
 /* レスポンシブ対応 */
 @media (max-width: 768px) {
     .tpc-duration-tabs {
-        gap: 4px;
+        gap: 6px;
         margin-top: 10px;
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -1682,15 +1681,19 @@ input[type="number"].tpc-pax-input {
     .tpc-duration-tab {
         padding: 5px 10px;
         font-size: 13px;
-        min-width: 40px;
+        min-width: 42px;
         flex-shrink: 0;
         width: auto;
+    }
+
+    .tpc-duration-tab.is-active {
+        padding: 6px 11px;
     }
 }
 
 @media (max-width: 480px) {
     .tpc-duration-tabs {
-        gap: 3px;
+        gap: 4px;
         margin-top: 8px;
         flex-wrap: nowrap;
         overflow-x: auto;
@@ -1699,9 +1702,13 @@ input[type="number"].tpc-pax-input {
     .tpc-duration-tab {
         padding: 4px 8px;
         font-size: 12px;
-        min-width: 36px;
+        min-width: 38px;
         flex-shrink: 0;
         width: auto;
+    }
+
+    .tpc-duration-tab.is-active {
+        padding: 5px 9px;
     }
 }
 
