@@ -243,30 +243,34 @@
      */
     function collectFormData(form) {
         const preview = form.closest(CONFIG.SELECTORS.preview);
-        
+
         // 基本データ
-        const tour = form.querySelector('input[name="tour"]')?.value || 
+        const tour = form.querySelector('input[name="tour"]')?.value ||
                     preview?.dataset.tour || '';
-        const date = form.querySelector('input[name="date"]')?.value || 
+        const date = form.querySelector('input[name="date"]')?.value ||
                     preview?.dataset.date || '';
-        
+
+        // ツアー名（data属性から取得、なければtour_idをそのまま使用）
+        const tourName = preview?.dataset.tourName || tour;
+
         // 選択された日数
         const durationInput = form.querySelector(CONFIG.SELECTORS.durationInput + ':checked') ||
                              form.querySelector('input[name="duration"]');
         const duration = parseInt(durationInput?.value) || 4;
-        
+
         // 人数
         const pax = parseInt(form.querySelector(CONFIG.SELECTORS.paxInput)?.value) || 1;
-        
+
         // 出発地
         const departure = form.querySelector('select[name="departure"]')?.value || '成田';
-        
+
         // オプション
         const options = Array.from(form.querySelectorAll(CONFIG.SELECTORS.optionCheckbox + ':checked'))
                             .map(checkbox => checkbox.value);
 
         return {
             tour: tour,
+            tourName: tourName,
             date: date,
             duration: duration,
             pax: pax,
@@ -338,43 +342,100 @@
             totalPriceElement.textContent = '計算エラー';
             totalPriceElement.style.color = '#e53e3e';
         }
-        
+
         console.error(message);
+    }
+
+    /**
+     * 日付文字列（YYYY-MM-DD）を年月日オブジェクトに分割
+     */
+    function parseDate(dateString) {
+        if (!dateString || !/^\d{4}-\d{2}-\d{2}$/.test(dateString)) {
+            return { year: '', month: '', day: '' };
+        }
+
+        const parts = dateString.split('-');
+        return {
+            year: parts[0],
+            month: parts[1],
+            day: parts[2]
+        };
     }
 
     /**
      * 申込フォームへ送信
      */
     function submitToBookingForm(formData) {
+        // データ検証
+        if (!formData.tour || !formData.date) {
+            console.error('必須データが不足しています:', { tour: formData.tour, date: formData.date });
+            alert('必要な情報が不足しています。ページを再読み込みしてやり直してください。');
+            return;
+        }
+
         // 仮の申込フォームURL（実際の環境に応じて調整）
         const bookingFormUrl = '/booking-input/'; // または既存のフォームURL
-        
+
+        // 日付をContact Form 7形式に分割
+        const dateParts = parseDate(formData.date);
+
+        // 日付の検証
+        if (!dateParts.year || !dateParts.month || !dateParts.day) {
+            console.error('日付の形式が無効です:', formData.date);
+            alert('日付の形式に問題があります。ページを再読み込みしてやり直してください。');
+            return;
+        }
+
         // POSTデータを作成
         const form = document.createElement('form');
         form.method = 'POST';
         form.action = bookingFormUrl;
         form.style.display = 'none';
-        
-        // データを隠しフィールドとして追加
-        Object.keys(formData).forEach(key => {
-            if (Array.isArray(formData[key])) {
-                // 配列の場合（オプション）
-                formData[key].forEach(value => {
-                    const input = document.createElement('input');
-                    input.type = 'hidden';
-                    input.name = key + '[]';
-                    input.value = value;
-                    form.appendChild(input);
-                });
-            } else {
+
+        // フィールドマッピング
+        const fieldMapping = {
+            tour_id: formData.tour,
+            tour_name: formData.tourName,
+            participants_number: formData.pax,
+            duration: formData.duration,
+            departure: formData.departure
+        };
+
+        // 基本フィールドを追加
+        Object.keys(fieldMapping).forEach(key => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = key;
+            input.value = fieldMapping[key];
+            form.appendChild(input);
+        });
+
+        // 日付フィールドを分割して追加
+        const dateFields = [
+            { name: 'departure_date[year]', value: dateParts.year },
+            { name: 'departure_date[month]', value: dateParts.month },
+            { name: 'departure_date[day]', value: dateParts.day }
+        ];
+
+        dateFields.forEach(field => {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = field.name;
+            input.value = field.value;
+            form.appendChild(input);
+        });
+
+        // オプション配列を追加
+        if (Array.isArray(formData.options)) {
+            formData.options.forEach(value => {
                 const input = document.createElement('input');
                 input.type = 'hidden';
-                input.name = key;
-                input.value = formData[key];
+                input.name = 'options[]';
+                input.value = value;
                 form.appendChild(input);
-            }
-        });
-        
+            });
+        }
+
         document.body.appendChild(form);
         form.submit();
     }

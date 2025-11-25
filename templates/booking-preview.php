@@ -28,8 +28,9 @@ $departure = $args['departure'] ?? '成田';
 $selected_options = (array) ( $args['options'] ?? array() );
 ?>
 
-<div class="tpc-booking-preview" 
-     data-tour="<?php echo esc_attr( $tour ); ?>" 
+<div class="tpc-booking-preview"
+     data-tour="<?php echo esc_attr( $tour ); ?>"
+     data-tour-name="<?php echo esc_attr( Andw_Tour_Price_Repo::getInstance()->getTourName( $tour ) ); ?>"
      data-date="<?php echo esc_attr( $date ); ?>">
 	
 	<div class="tpc-booking-header">
