@@ -1015,23 +1015,23 @@ input[type="number"].tpc-pax-input {
 }
 
 [data-duration="4"] .calendar-header {
-    background-color: rgba(245, 129, 149, 0.5);
+    background-color: rgba(245, 129, 149, 0.4);
 }
 
 [data-duration="5"] .calendar-header {
-    background-color: rgba(44, 177, 177, 0.5);    
+    background-color: rgba(44, 177, 177, 0.4);    
 }
 
 [data-duration="6"] .calendar-header {
-    background-color: rgba(176, 146, 33, 0.5);
+    background-color: rgba(176, 146, 33, 0.4);
 }
 
 [data-duration="7"] .calendar-header {
-    background-color: rgba(41, 170, 41, 0.5);
+    background-color: rgba(41, 170, 41, 0.4);
 }
 
 [data-duration="8"] .calendar-header {
-    background-color: rgba(214, 42, 32, 0.5);
+    background-color: rgba(214, 42, 32, 0.4);
 }
 
 
@@ -1299,23 +1299,23 @@ input[type="number"].tpc-pax-input {
 }
 
 [data-duration="4"] .calendar-legend {
-    background-color: rgba(245, 129, 149, 0.2);
+    background-color: rgba(245, 129, 149, 0.1);
 }
 
 [data-duration="5"] .calendar-legend {
-    background-color: rgba(44, 177, 177, 0.2);    
+    background-color: rgba(44, 177, 177, 0.1);    
 }
 
 [data-duration="6"] .calendar-legend {
-    background-color: rgba(176, 146, 33, 0.2);
+    background-color: rgba(176, 146, 33, 0.1);
 }
 
 [data-duration="7"] .calendar-legend {
-    background-color: rgba(41, 170, 41, 0.2);
+    background-color: rgba(41, 170, 41, 0.1);
 }
 
 [data-duration="8"] .calendar-legend {
-    background-color: rgba(214, 42, 32, 0.2);
+    background-color: rgba(214, 42, 32, 0.1);
 }
 
 
