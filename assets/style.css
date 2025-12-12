@@ -1027,6 +1027,9 @@ input[type="number"].tpc-pax-input {
     font-weight: 700;
     letter-spacing: -0.025em;
     color:#000;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 25px;
+    padding: 5px 20px;
 }
 
 .calendar-meta {
