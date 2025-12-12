@@ -1271,7 +1271,7 @@ input[type="number"].tpc-pax-input {
 /* ==== 凡例 ==== */
 .calendar-legend {
     padding: 20px 24px;
-    background: #f7fafc;
+    background: #dfe9e9;
     border-top: 1px solid #e2e8f0;
 }
 
@@ -1590,6 +1590,7 @@ input[type="number"].tpc-pax-input {
     transition: all 0.2s ease;
     min-width: 48px;
     white-space: nowrap;
+    background-color: #ffffff;
 }
 
 /* 期間別の色設定 */
@@ -1620,27 +1621,27 @@ input[type="number"].tpc-pax-input {
 
 /* 非選択状態のホバー時（軽い背景色） */
 .tpc-duration-tab:not(.is-active)[data-duration="4"]:hover {
-    background-color: rgba(245, 129, 149, 0.12);
+    background-color: rgba(245, 129, 149, 0.8);
     text-decoration: none;
 }
 
 .tpc-duration-tab:not(.is-active)[data-duration="5"]:hover {
-    background-color: rgba(44, 177, 177, 0.12);
+    background-color: rgba(44, 177, 177, 0.8);
     text-decoration: none;
 }
 
 .tpc-duration-tab:not(.is-active)[data-duration="6"]:hover {
-    background-color: rgba(176, 146, 33, 0.12);
+    background-color: rgba(176, 146, 33, 0.8);
     text-decoration: none;
 }
 
 .tpc-duration-tab:not(.is-active)[data-duration="7"]:hover {
-    background-color: rgba(41, 170, 41, 0.12);
+    background-color: rgba(41, 170, 41, 0.8);
     text-decoration: none;
 }
 
 .tpc-duration-tab:not(.is-active)[data-duration="8"]:hover {
-    background-color: rgba(214, 42, 32, 0.12);
+    background-color: rgba(214, 42, 32, 0.8);
     text-decoration: none;
 }
 
