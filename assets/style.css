@@ -499,7 +499,6 @@
 
 /* 申込ボタン */
 .tpc-submit {
-    flex: 0 0 auto;
     width: 100%;
     padding: 12px 16px;
     background: #4299e1;
@@ -510,7 +509,6 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.15s ease;
-    align-self: flex-start;
 }
 
 .tpc-submit:hover:not(:disabled) {
