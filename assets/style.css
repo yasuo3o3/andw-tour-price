@@ -335,6 +335,14 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     padding: 12px;
     font-family: inherit;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* 予約パネル内の上部要素は全幅 */
+.tpc-booking-panel > *:not(.tpc-quote):not(.tpc-submit) {
+    flex-basis: 100%;
 }
 
 /* 出発日エリア */
