@@ -430,7 +430,7 @@
 
 /* 見積エリア */
 .tpc-quote {
-    flex: 1;
+    flex-basis: auto;
     margin-bottom: 0;
     padding: 16px;
     background: #f7fafc;
