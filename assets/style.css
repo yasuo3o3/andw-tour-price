@@ -328,21 +328,31 @@
 
 /* ==== 予約パネル ==== */
 .tpc-booking-panel {
-    max-width: 320px;
-    margin: 0 0 20px 20px;
+    width: 100%;
+    max-width: 100%;
+    margin: 0;
     background: #ffffff;
     border-radius: 12px;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    padding: 12px;
+    padding: 20px;
     font-family: inherit;
     display: flex;
-    flex-wrap: wrap;
     gap: 20px;
 }
 
-/* 予約パネル内の上部要素は全幅 */
-.tpc-booking-panel > *:not(.tpc-quote):not(.tpc-submit) {
-    flex-basis: 100%;
+/* 左カラム: ツアー情報・オプション */
+.tpc-booking-left {
+    flex: 1;
+    min-width: 0;
+}
+
+/* 右カラム: 料金・申込ボタン */
+.tpc-booking-right {
+    flex: 0 0 auto;
+    width: 320px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 /* 出発日エリア */
@@ -2132,16 +2142,16 @@ input[type="number"].tpc-pax-input {
       .tpc-booking-panel {
           width: 100%;
           max-width: none;
+          flex-direction: column;
       }
 
-      /* スマホでは基本料金とボタンを縦並びに戻す */
-      .tpc-quote {
-          flex: 1 1 100%;
-          margin-bottom: 20px;
-      }
-
-      .tpc-submit {
-          flex: 1 1 100%;
+      /* スマホでは左右カラムを縦並びに */
+      .tpc-booking-left,
+      .tpc-booking-right {
           width: 100%;
+      }
+
+      .tpc-booking-right {
+          flex: 1 1 auto;
       }
   }

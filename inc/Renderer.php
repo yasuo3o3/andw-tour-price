@@ -472,107 +472,111 @@ class Andw_Tour_Price_Renderer {
 		ob_start();
 		?>
 		<aside class="tpc-booking-panel" aria-label="<?php esc_attr_e( '予約内容の選択', 'andw-tour-price' ); ?>">
-			<div class="calendar-meta">
-				<span class="tour-id"><?php echo esc_html( $args['tour'] ); ?></span>
-				<span class="tour-name"><?php echo esc_html( $this->repo->getTourName( $args['tour'] ) ); ?></span>
-			</div>
-			
-			<div class="tpc-duration-tabs tpc-duration-tabs--panel" data-tpc-duration-tabs>
-				<?php foreach ( $available_durations as $duration ) : ?>
-					<button type="button" 
-							role="tab" 
-							class="tpc-duration-tab<?php echo $duration === $args['duration'] ? ' is-active' : ''; ?>" 
-							data-duration="<?php echo esc_attr( $duration ); ?>"
-							<?php if ( $duration === $args['duration'] ) echo 'aria-current="page"'; ?>>
-						<?php
-						/* translators: %d is the number of days for tour duration */
-						printf( esc_html__( '%d日間', 'andw-tour-price' ), esc_html( absint( $duration ) ) ); ?>
-					</button>
-				<?php endforeach; ?>
-			</div>
+			<div class="tpc-booking-left">
+				<div class="calendar-meta">
+					<span class="tour-id"><?php echo esc_html( $args['tour'] ); ?></span>
+					<span class="tour-name"><?php echo esc_html( $this->repo->getTourName( $args['tour'] ) ); ?></span>
+				</div>
 
-			<div class="tpc-booking-date">
-				<div class="tpc-booking-date__label"><?php esc_html_e( '出発日', 'andw-tour-price' ); ?></div>
-				<div class="tpc-booking-date__value" data-tpc-date><?php esc_html_e( '未選択', 'andw-tour-price' ); ?></div>
-				<div class="tpc-booking-date__season" data-tpc-season></div>
-			</div>
+				<div class="tpc-duration-tabs tpc-duration-tabs--panel" data-tpc-duration-tabs>
+					<?php foreach ( $available_durations as $duration ) : ?>
+						<button type="button"
+								role="tab"
+								class="tpc-duration-tab<?php echo $duration === $args['duration'] ? ' is-active' : ''; ?>"
+								data-duration="<?php echo esc_attr( $duration ); ?>"
+								<?php if ( $duration === $args['duration'] ) echo 'aria-current="page"'; ?>>
+							<?php
+							/* translators: %d is the number of days for tour duration */
+							printf( esc_html__( '%d日間', 'andw-tour-price' ), esc_html( absint( $duration ) ) ); ?>
+						</button>
+					<?php endforeach; ?>
+				</div>
 
-			<div class="tpc-booking-group">
-				<label for="tpc-pax"><?php esc_html_e( '参加人数', 'andw-tour-price' ); ?></label>
-				<select id="tpc-pax" data-tpc-pax>
-					<option value="1"><?php esc_html_e( '1名', 'andw-tour-price' ); ?></option>
-					<option value="2"><?php esc_html_e( '2名', 'andw-tour-price' ); ?></option>
-					<option value="3"><?php esc_html_e( '3名', 'andw-tour-price' ); ?></option>
-					<option value="4"><?php esc_html_e( '4名', 'andw-tour-price' ); ?></option>
-					<option value="5"><?php esc_html_e( '5名', 'andw-tour-price' ); ?></option>
-					<option value="6"><?php esc_html_e( '6名', 'andw-tour-price' ); ?></option>
-				</select>
-			</div>
-			
-			<?php error_log("Renderer.php:502 - Before tour options section"); ?>
+				<div class="tpc-booking-date">
+					<div class="tpc-booking-date__label"><?php esc_html_e( '出発日', 'andw-tour-price' ); ?></div>
+					<div class="tpc-booking-date__value" data-tpc-date><?php esc_html_e( '未選択', 'andw-tour-price' ); ?></div>
+					<div class="tpc-booking-date__season" data-tpc-season></div>
+				</div>
 
-			<?php 
-			error_log("Renderer.php:503 - About to get tour options for tour: {$args['tour']}");
-			$tour_options = $this->booking_preview->getTourOptions( $args['tour'] );
-			error_log("Renderer.php:505 - Got tour options for {$args['tour']}: " . print_r($tour_options, true));
-			if ( ! empty( $tour_options ) ) : 
-				error_log("Renderer.php:507 - Tour options not empty, showing options section");
-			else:
-				error_log("Renderer.php:509 - Tour options empty, hiding options section");
-			endif;
-			if ( ! empty( $tour_options ) ) : ?>
-			<div class="tpc-booking-options">
-				<div class="tpc-booking-options__label"><?php esc_html_e( 'オプション（任意）', 'andw-tour-price' ); ?></div>
-				<?php foreach ( $tour_options as $option ) : ?>
-					<label class="tpc-option">
-						<input type="checkbox"
-							   data-tpc-option-id="<?php echo esc_attr( $option['option_id'] ); ?>"
-							   data-price-min="<?php echo esc_attr( $option['price_min'] ?? 0 ); ?>"
-							   data-price-max="<?php echo esc_attr( $option['price_max'] ?? 0 ); ?>"
-							   data-affects-total="<?php echo esc_attr( $option['affects_total'] ?? 'false' ); ?>" />
-						<div class="option-content">
-							<span class="option-label">
-								<?php echo esc_html( $option['option_label'] ); ?>
-								<?php if ( ! empty( $option['show_price'] ) && $option['show_price'] === 'true' ) : ?>
-									<?php if ( $option['price_min'] == $option['price_max'] ) : ?>
-										（¥<?php echo number_format( $option['price_min'] ); ?>）
-									<?php else : ?>
-										（¥<?php echo number_format( $option['price_min'] ); ?>～¥<?php echo number_format( $option['price_max'] ); ?>）
+				<div class="tpc-booking-group">
+					<label for="tpc-pax"><?php esc_html_e( '参加人数', 'andw-tour-price' ); ?></label>
+					<select id="tpc-pax" data-tpc-pax>
+						<option value="1"><?php esc_html_e( '1名', 'andw-tour-price' ); ?></option>
+						<option value="2"><?php esc_html_e( '2名', 'andw-tour-price' ); ?></option>
+						<option value="3"><?php esc_html_e( '3名', 'andw-tour-price' ); ?></option>
+						<option value="4"><?php esc_html_e( '4名', 'andw-tour-price' ); ?></option>
+						<option value="5"><?php esc_html_e( '5名', 'andw-tour-price' ); ?></option>
+						<option value="6"><?php esc_html_e( '6名', 'andw-tour-price' ); ?></option>
+					</select>
+				</div>
+
+				<?php error_log("Renderer.php:502 - Before tour options section"); ?>
+
+				<?php
+				error_log("Renderer.php:503 - About to get tour options for tour: {$args['tour']}");
+				$tour_options = $this->booking_preview->getTourOptions( $args['tour'] );
+				error_log("Renderer.php:505 - Got tour options for {$args['tour']}: " . print_r($tour_options, true));
+				if ( ! empty( $tour_options ) ) :
+					error_log("Renderer.php:507 - Tour options not empty, showing options section");
+				else:
+					error_log("Renderer.php:509 - Tour options empty, hiding options section");
+				endif;
+				if ( ! empty( $tour_options ) ) : ?>
+				<div class="tpc-booking-options">
+					<div class="tpc-booking-options__label"><?php esc_html_e( 'オプション（任意）', 'andw-tour-price' ); ?></div>
+					<?php foreach ( $tour_options as $option ) : ?>
+						<label class="tpc-option">
+							<input type="checkbox"
+								   data-tpc-option-id="<?php echo esc_attr( $option['option_id'] ); ?>"
+								   data-price-min="<?php echo esc_attr( $option['price_min'] ?? 0 ); ?>"
+								   data-price-max="<?php echo esc_attr( $option['price_max'] ?? 0 ); ?>"
+								   data-affects-total="<?php echo esc_attr( $option['affects_total'] ?? 'false' ); ?>" />
+							<div class="option-content">
+								<span class="option-label">
+									<?php echo esc_html( $option['option_label'] ); ?>
+									<?php if ( ! empty( $option['show_price'] ) && $option['show_price'] === 'true' ) : ?>
+										<?php if ( $option['price_min'] == $option['price_max'] ) : ?>
+											（¥<?php echo number_format( $option['price_min'] ); ?>）
+										<?php else : ?>
+											（¥<?php echo number_format( $option['price_min'] ); ?>～¥<?php echo number_format( $option['price_max'] ); ?>）
+										<?php endif; ?>
 									<?php endif; ?>
+								</span>
+								<?php if ( ! empty( $option['description'] ) ) : ?>
+									<div class="option-description"><?php echo esc_html( $option['description'] ); ?></div>
 								<?php endif; ?>
-							</span>
-							<?php if ( ! empty( $option['description'] ) ) : ?>
-								<div class="option-description"><?php echo esc_html( $option['description'] ); ?></div>
-							<?php endif; ?>
-						</div>
-					</label>
-				<?php endforeach; ?>
-			</div>
-			<?php endif; ?>
-
-			<div class="tpc-quote">
-				<div class="tpc-quote__row">
-					<span><?php esc_html_e( '基本料金', 'andw-tour-price' ); ?></span>
-					<strong data-tpc-base>—</strong>
+							</div>
+						</label>
+					<?php endforeach; ?>
 				</div>
-				<div class="tpc-quote__row">
-					<span><?php esc_html_e( 'お一人様参加料金', 'andw-tour-price' ); ?></span>
-					<strong data-tpc-solo>—</strong>
-				</div>
-				<div class="tpc-quote__row">
-					<span><?php esc_html_e( '参加人数', 'andw-tour-price' ); ?></span>
-					<strong data-tpc-pax-view>—</strong>
-				</div>
-				<div class="tpc-quote__total">
-					<span><?php esc_html_e( '合計概算金額', 'andw-tour-price' ); ?></span>
-					<strong data-tpc-total>—</strong>
-				</div>
-				<small class="tpc-quote__note"><?php esc_html_e( '※運賃変動等により金額は変更になることがあります', 'andw-tour-price' ); ?></small>
+				<?php endif; ?>
 			</div>
 
-			<button class="tpc-submit" data-tpc-submit disabled>
-				<?php esc_html_e( '申込フォームへ', 'andw-tour-price' ); ?>
-			</button>
+			<div class="tpc-booking-right">
+				<div class="tpc-quote">
+					<div class="tpc-quote__row">
+						<span><?php esc_html_e( '基本料金', 'andw-tour-price' ); ?></span>
+						<strong data-tpc-base>—</strong>
+					</div>
+					<div class="tpc-quote__row">
+						<span><?php esc_html_e( 'お一人様参加料金', 'andw-tour-price' ); ?></span>
+						<strong data-tpc-solo>—</strong>
+					</div>
+					<div class="tpc-quote__row">
+						<span><?php esc_html_e( '参加人数', 'andw-tour-price' ); ?></span>
+						<strong data-tpc-pax-view>—</strong>
+					</div>
+					<div class="tpc-quote__total">
+						<span><?php esc_html_e( '合計概算金額', 'andw-tour-price' ); ?></span>
+						<strong data-tpc-total>—</strong>
+					</div>
+					<small class="tpc-quote__note"><?php esc_html_e( '※運賃変動等により金額は変更になることがあります', 'andw-tour-price' ); ?></small>
+				</div>
+
+				<button class="tpc-submit" data-tpc-submit disabled>
+					<?php esc_html_e( '申込フォームへ', 'andw-tour-price' ); ?>
+				</button>
+			</div>
 		</aside>
 		<?php
 		
