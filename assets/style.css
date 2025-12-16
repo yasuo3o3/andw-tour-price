@@ -342,14 +342,13 @@
 
 /* 左カラム: ツアー情報・オプション */
 .tpc-booking-left {
-    flex: 1;
+    flex: 0 0 50%;
     min-width: 0;
 }
 
 /* 右カラム: 料金・申込ボタン */
 .tpc-booking-right {
-    flex: 0 0 auto;
-    width: 320px;
+    flex: 0 0 50%;
     display: flex;
     flex-direction: column;
     gap: 20px;
