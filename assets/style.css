@@ -335,6 +335,14 @@
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
     padding: 12px;
     font-family: inherit;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+/* 予約パネル内の上部要素は全幅 */
+.tpc-booking-panel > *:not(.tpc-quote):not(.tpc-submit) {
+    flex-basis: 100%;
 }
 
 /* 出発日エリア */
@@ -422,7 +430,8 @@
 
 /* 見積エリア */
 .tpc-quote {
-    margin-bottom: 20px;
+    flex: 1;
+    margin-bottom: 0;
     padding: 16px;
     background: #f7fafc;
     border-radius: 8px;
@@ -481,7 +490,9 @@
 
 /* 申込ボタン */
 .tpc-submit {
-    width: 100%;
+    flex: 0 0 auto;
+    width: auto;
+    min-width: 200px;
     padding: 12px 16px;
     background: #4299e1;
     color: #ffffff;
@@ -491,6 +502,7 @@
     font-weight: 600;
     cursor: pointer;
     transition: all 0.15s ease;
+    align-self: flex-start;
 }
 
 .tpc-submit:hover:not(:disabled) {
@@ -2080,6 +2092,7 @@ input[type="number"].tpc-pax-input {
 
 .tpc-booking-container {
       display: flex;
+      flex-direction: column;
       gap: 20px;
       align-items: flex-start;
       max-width: 1400px;
@@ -2092,8 +2105,7 @@ input[type="number"].tpc-pax-input {
   }
 
   .tpc-booking-panel {
-      flex-shrink: 0;
-      width: 320px;
+      width: 100%;
   }
 
   @media (max-width: 1200px) {
@@ -2112,13 +2124,24 @@ input[type="number"].tpc-pax-input {
           gap: 0;
           margin: 10px;
       }
-      
+
       .andw-tour-price-calendar {
           min-width: unset;
       }
-      
+
       .tpc-booking-panel {
           width: 100%;
           max-width: none;
+      }
+
+      /* スマホでは基本料金とボタンを縦並びに戻す */
+      .tpc-quote {
+          flex: 1 1 100%;
+          margin-bottom: 20px;
+      }
+
+      .tpc-submit {
+          flex: 1 1 100%;
+          width: 100%;
       }
   }
